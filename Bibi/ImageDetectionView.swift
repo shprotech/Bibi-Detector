@@ -38,11 +38,13 @@ struct ImageDetectionView: View {
                                 Image(uiImage: result.image)
                                     .resizable()
                                     .scaledToFit()
+                                    .cornerRadius(10)
                                     .frame(maxWidth: imageSize, maxHeight: imageSize)
                             }
                             .padding(.horizontal)
                         }
                     }
+                    .edgesIgnoringSafeArea(.top)
                 case .failure(let error):
                     Text("There was an error while predicating: \(error.localizedDescription)")
                         .padding()
@@ -52,7 +54,6 @@ struct ImageDetectionView: View {
                     .padding()
             }
         }
-        .navigationTitle("Results")
     }
     
     /**

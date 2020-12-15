@@ -22,7 +22,11 @@ struct ContentView: View {
                         .resizable()
                         .scaledToFit()
                         .cornerRadius(25)
-                        .frame(width: 200, height: 200)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 25)
+                                .stroke(Color.white)
+                        )
+                        .padding(10)
                     NavigationLink("Detect!", destination: ImageDetectionView(image: image))
                         .padding(.vertical)
                 }

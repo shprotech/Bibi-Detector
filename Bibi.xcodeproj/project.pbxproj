@@ -64,13 +64,13 @@
 			children = (
 				793A29E8258813F100C280C8 /* BibiApp.swift */,
 				793A29EA258813F100C280C8 /* ContentView.swift */,
+				793A2A052588F80100C280C8 /* ImageDetectionView.swift */,
+				793A2A092589143300C280C8 /* PredictionTopImageView.swift */,
 				793A29FF2588C14000C280C8 /* BibiPredicator.swift */,
 				793A29EC258813F300C280C8 /* Assets.xcassets */,
 				793A29F1258813F300C280C8 /* Info.plist */,
 				793A29F82588140700C280C8 /* BibiClassifier.mlmodel */,
 				793A29EE258813F300C280C8 /* Preview Content */,
-				793A2A052588F80100C280C8 /* ImageDetectionView.swift */,
-				793A2A092589143300C280C8 /* PredictionTopImageView.swift */,
 			);
 			path = Bibi;
 			sourceTree = "<group>";
