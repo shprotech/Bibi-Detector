@@ -6,11 +6,40 @@
 //
 
 import SwiftUI
+import ImagePickerView
 
 struct ContentView: View {
+    @ObservedObject var predicator = BibiPredicator(image: UIImage(named: "bibi")!)
+    
+    @State private var image: UIImage?
+    @State private var showImagePicker = false
+    
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        NavigationView {
+            VStack {
+                if let image = image {
+                    Image(uiImage: image)
+                        .resizable()
+                        .scaledToFit()
+                        .cornerRadius(25)
+                        .frame(width: 200, height: 200)
+                    NavigationLink("Detect!", destination: ImageDetectionView(image: image))
+                        .padding(.vertical)
+                }
+                Button {
+                    showImagePicker = true
+                } label: {
+                    Text("Select Image")
+                }
+            }
+            .navigationTitle("Select Image")
+        }
+        .sheet(isPresented: $showImagePicker) {
+            ImagePickerView(sourceType: .photoLibrary) { (image) in
+                self.image = image
+                self.showImagePicker = false
+            }
+        }
     }
 }
 

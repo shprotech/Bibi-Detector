@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -11,6 +11,11 @@
 		793A29EB258813F100C280C8 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793A29EA258813F100C280C8 /* ContentView.swift */; };
 		793A29ED258813F300C280C8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 793A29EC258813F300C280C8 /* Assets.xcassets */; };
 		793A29F0258813F300C280C8 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 793A29EF258813F300C280C8 /* Preview Assets.xcassets */; };
+		793A29F92588140700C280C8 /* BibiClassifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 793A29F82588140700C280C8 /* BibiClassifier.mlmodel */; };
+		793A29FD2588168C00C280C8 /* ImagePickerView in Frameworks */ = {isa = PBXBuildFile; productRef = 793A29FC2588168C00C280C8 /* ImagePickerView */; };
+		793A2A002588C14000C280C8 /* BibiPredicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793A29FF2588C14000C280C8 /* BibiPredicator.swift */; };
+		793A2A062588F80100C280C8 /* ImageDetectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793A2A052588F80100C280C8 /* ImageDetectionView.swift */; };
+		793A2A0A2589143300C280C8 /* PredictionTopImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793A2A092589143300C280C8 /* PredictionTopImageView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +25,10 @@
 		793A29EC258813F300C280C8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		793A29EF258813F300C280C8 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		793A29F1258813F300C280C8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		793A29F82588140700C280C8 /* BibiClassifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = BibiClassifier.mlmodel; sourceTree = "<group>"; };
+		793A29FF2588C14000C280C8 /* BibiPredicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BibiPredicator.swift; sourceTree = "<group>"; };
+		793A2A052588F80100C280C8 /* ImageDetectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDetectionView.swift; sourceTree = "<group>"; };
+		793A2A092589143300C280C8 /* PredictionTopImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PredictionTopImageView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -27,6 +36,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				793A29FD2588168C00C280C8 /* ImagePickerView in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -54,9 +64,13 @@
 			children = (
 				793A29E8258813F100C280C8 /* BibiApp.swift */,
 				793A29EA258813F100C280C8 /* ContentView.swift */,
+				793A29FF2588C14000C280C8 /* BibiPredicator.swift */,
 				793A29EC258813F300C280C8 /* Assets.xcassets */,
 				793A29F1258813F300C280C8 /* Info.plist */,
+				793A29F82588140700C280C8 /* BibiClassifier.mlmodel */,
 				793A29EE258813F300C280C8 /* Preview Content */,
+				793A2A052588F80100C280C8 /* ImageDetectionView.swift */,
+				793A2A092589143300C280C8 /* PredictionTopImageView.swift */,
 			);
 			path = Bibi;
 			sourceTree = "<group>";
@@ -85,6 +99,9 @@
 			dependencies = (
 			);
 			name = Bibi;
+			packageProductDependencies = (
+				793A29FC2588168C00C280C8 /* ImagePickerView */,
+			);
 			productName = Bibi;
 			productReference = 793A29E5258813F100C280C8 /* Bibi.app */;
 			productType = "com.apple.product-type.application";
@@ -112,6 +129,9 @@
 				Base,
 			);
 			mainGroup = 793A29DC258813F100C280C8;
+			packageReferences = (
+				793A29FB2588168C00C280C8 /* XCRemoteSwiftPackageReference "ImagePickerView" */,
+			);
 			productRefGroup = 793A29E6258813F100C280C8 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -138,8 +158,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				793A2A062588F80100C280C8 /* ImageDetectionView.swift in Sources */,
+				793A2A0A2589143300C280C8 /* PredictionTopImageView.swift in Sources */,
 				793A29EB258813F100C280C8 /* ContentView.swift in Sources */,
 				793A29E9258813F100C280C8 /* BibiApp.swift in Sources */,
+				793A2A002588C14000C280C8 /* BibiPredicator.swift in Sources */,
+				793A29F92588140700C280C8 /* BibiClassifier.mlmodel in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -328,6 +352,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		793A29FB2588168C00C280C8 /* XCRemoteSwiftPackageReference "ImagePickerView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ralfebert/ImagePickerView.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.5.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		793A29FC2588168C00C280C8 /* ImagePickerView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 793A29FB2588168C00C280C8 /* XCRemoteSwiftPackageReference "ImagePickerView" */;
+			productName = ImagePickerView;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 793A29DD258813F100C280C8 /* Project object */;
 }
