@@ -21,53 +21,37 @@ struct ImageDetectionView: View {
     
     var body: some View {
         Group {
-            if let prediction = predicator.prediction {
-                switch prediction {
-                case .success(let predictions):
-                    ScrollView {
-                        PredictionTopImageView(image: image, predicator: predicator)
-                        ForEach(predictions) { result in
-                            HStack {
-                                if result.bibi {
-                                    Text("Bibi for \(result.confidence)")
-                                } else {
-                                    Text("Not Bibi for \(result.confidence)")
-                                }
-                                
-                                Spacer()
-                                Image(uiImage: result.image)
-                                    .resizable()
-                                    .scaledToFit()
-                                    .cornerRadius(10)
-                                    .frame(maxWidth: imageSize, maxHeight: imageSize)
+            switch predicator.prediction {
+            case .success(let predictions):
+                ScrollView {
+                    PredictionTopImageView(image: image, predicator: predicator)
+                    ForEach(predictions) { result in
+                        HStack {
+                            if result.bibi {
+                                Text("Bibi for \(result.confidence)")
+                            } else {
+                                Text("Not Bibi for \(result.confidence)")
                             }
-                            .padding(.horizontal)
+                            
+                            Spacer()
+                            Image(uiImage: result.image)
+                                .resizable()
+                                .scaledToFit()
+                                .cornerRadius(10)
+                                .frame(maxWidth: imageSize, maxHeight: imageSize)
                         }
+                        .padding(.horizontal)
                     }
-                    .edgesIgnoringSafeArea(.top)
-                case .failure(let error):
-                    Text("There was an error while predicating: \(error.localizedDescription)")
-                        .padding()
                 }
-            } else {
+                .edgesIgnoringSafeArea(.top)
+            case .failure(let error):
+                Text("There was an error while predicating: \(error.localizedDescription)")
+                    .padding()
+            case .none:
                 Text("Predicting...")
                     .padding()
             }
         }
-    }
-    
-    /**
-     Convert the rect of a face to the dimentions of the image.
-     - Parameter face: The rect of the face in the VNFaceObservation bounding box.
-     - Returns: The new rect in the dimentions of the original image.
-     */
-    private func convert(face rect: CGRect, with box: CGRect) -> CGRect {
-        let width = rect.width * box.width
-        let height = rect.height * box.height
-        let x = rect.origin.x * box.width
-        let y = rect.origin.y * box.height - height * 2
-        
-        return CGRect(x: x, y: y, width: width, height: height)
     }
 }
 

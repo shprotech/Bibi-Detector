@@ -17,6 +17,10 @@ class BibiPredicator: ObservableObject {
     
     private var image: UIImage
     
+    /**
+     Create a new BibiPredicator with the given image.
+     - Parameter image: The image to create the predication from.
+     */
     init(image: UIImage) {
         self.image = image
         
@@ -80,6 +84,10 @@ class BibiPredicator: ObservableObject {
         })
     }
     
+    /**
+     Set the published error in the main queue.
+     - Parameter error: The new error to set.
+     */
     private func set(error: Error) {
         DispatchQueue.main.async {
             self.prediction = .failure(error)
@@ -173,10 +181,18 @@ enum PredictionError: LocalizedError {
     }
 }
 
+/**
+ A struct that represents a prediction result.
+ */
 struct Prediction: Identifiable {
+    /// If true - Bibi is in the photo.
     var bibi: Bool
+    /// The confidence of the prediction (0-1).
     var confidence: Double
+    /// The rect of the face (0-1 from bottom left).
     var box: CGRect
+    /// The tested image.
     var image: UIImage
+    /// The id of the prediction.
     var id = UUID()
 }

@@ -39,6 +39,12 @@ struct PredictionTopImageView: View {
         }
     }
     
+    /**
+     Get the rect of the face in the geometry of the image.
+     - Parameter prediction: The rect of the face in the prediction.
+     - Parameter geo: The geometry of the image.
+     - Returns: The rect of the face in the geometry of the image.
+     */
     func rect(for prediction: CGRect, in geo: CGRect) -> CGRect {
         let height = prediction.height * geo.height
         return CGRect(x: prediction.minX * geo.width,
