@@ -11,6 +11,9 @@ struct PredictionTopImageView: View {
     var image: UIImage
     var predicator: BibiPredicator
     
+    private let faceRectRadius: CGFloat = 5
+    private let faceRectLineWidth: CGFloat = 2
+    
     var body: some View {
         ZStack {
             switch predicator.prediction {
@@ -23,17 +26,17 @@ struct PredictionTopImageView: View {
                 ForEach(predictions) { prediction in
                     GeometryReader { geo in
                         if prediction.bibi {
-                            RoundedRectangle(cornerRadius: 5, style: .continuous)
+                            RoundedRectangle(cornerRadius: faceRectRadius, style: .continuous)
                                 .path(in: rect(for: prediction.box, in: geo.frame(in: .named("top_image"))))
-                                .stroke(Color.green, lineWidth: 2)
+                                .stroke(Color.green, lineWidth: faceRectLineWidth)
                         } else {
-                            RoundedRectangle(cornerRadius: 5, style: .continuous)
+                            RoundedRectangle(cornerRadius: faceRectRadius, style: .continuous)
                                 .path(in: rect(for: prediction.box, in: geo.frame(in: .named("top_image"))))
-                                .stroke(Color.red, lineWidth: 2)
+                                .stroke(Color.red, lineWidth: faceRectLineWidth)
                         }
                     }
                 }
-            case .failure(_), .none:
+            case .failure, .none:
                 EmptyView()
             }
         }

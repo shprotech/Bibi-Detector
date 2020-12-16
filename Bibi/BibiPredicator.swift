@@ -10,7 +10,7 @@ import SwiftUI
 import Vision
 
 class BibiPredicator: ObservableObject {
-    typealias PredicationResult = Result<[Prediction], Error>
+    typealias PredicationResult = Result<[Prediction], BibiPredicatorErrors>
     
     /// The predication of the given image (if any).
     @Published var prediction: PredicationResult?
@@ -41,7 +41,7 @@ class BibiPredicator: ObservableObject {
      */
     private func detectFaces() {
         guard let cgImage = image.cgImage else {
-            self.prediction = .failure(PredictionError.invalidImage)
+            self.prediction = .failure(BibiPredicatorErrors.invalidImage)
             return
         }
         
@@ -53,7 +53,7 @@ class BibiPredicator: ObservableObject {
             try handler.perform([detectFacesRequest])
         } catch {
             DispatchQueue.main.async {
-                self.prediction = .failure(error)
+                self.prediction = .failure(.other(error: error))
             }
         }
     }
@@ -65,21 +65,21 @@ class BibiPredicator: ObservableObject {
      */
     private func predicateFaces(request: VNRequest, error: Error?) {
         if let error = error {
-            set(error: error)
+            set(error: .other(error: error))
             return
         }
         
         guard let results = request.results as? [VNFaceObservation] else {
-            set(error: PredictionError.noFaces)  // TODO: Convert to a better error
+            set(error: BibiPredicatorErrors.noFaces)
             return
         }
         
         if results.count == 0 {
-            set(error: PredictionError.noFaces)
+            set(error: BibiPredicatorErrors.noFaces)
             return
         }
         
-        self.createPredictions(for: results.map{ (result) in
+        self.createPredictions(for: results.map { (result) in
             result.boundingBox
         })
     }
@@ -88,12 +88,13 @@ class BibiPredicator: ObservableObject {
      Set the published error in the main queue.
      - Parameter error: The new error to set.
      */
-    private func set(error: Error) {
+    private func set(error: BibiPredicatorErrors) {
         DispatchQueue.main.async {
-            self.prediction = .failure(error)
+            self.prediction = .failure(.other(error: error))
         }
     }
     
+    // swiftlint:disable identifier_name
     /**
      Convert the rect of a face to the dimentions of the image.
      - Parameter face: The rect of the face in the VNFaceObservation bounding box.
@@ -101,7 +102,7 @@ class BibiPredicator: ObservableObject {
      */
     private func convert(face rect: CGRect) throws -> CGRect {
         guard let image = self.image.cgImage else {
-           throw PredictionError.invalidImage
+           throw BibiPredicatorErrors.invalidImage
         }
         
         let width = rect.width * CGFloat(image.width)
@@ -111,6 +112,7 @@ class BibiPredicator: ObservableObject {
         
         return CGRect(x: x, y: y, width: width, height: height)
     }
+    // swiftlint:enable identifier_name
     
     /**
      Create prediction for each face using the given image.
@@ -118,7 +120,7 @@ class BibiPredicator: ObservableObject {
      */
     private func createPredictions(for faces: [CGRect]) {
         guard let cgImage = self.image.cgImage else {
-            set(error: PredictionError.invalidImage)
+            set(error: BibiPredicatorErrors.invalidImage)
             return
         }
         var predictions = [Prediction]()
@@ -128,7 +130,7 @@ class BibiPredicator: ObservableObject {
                 let scaledFace = try convert(face: face)
                 
                 guard let croppedImage = cgImage.cropping(to: scaledFace) else {
-                    set(error: PredictionError.invalidImage)
+                    set(error: .invalidImage)
                     return
                 }
                 
@@ -136,7 +138,7 @@ class BibiPredicator: ObservableObject {
                 prediction.box = face
                 predictions.append(prediction)
             } catch {
-                set(error: error)
+                set(error: .other(error: error))
             }
         }
         
@@ -161,11 +163,12 @@ class BibiPredicator: ObservableObject {
     }
 }
 
-enum PredictionError: LocalizedError {
+enum BibiPredicatorErrors: LocalizedError {
     case invalidImage
     case failedToCreateBuffer
     case noFaces
     case invalidFacesResults
+    case other(error: Error)
     
     var errorDescription: String? {
         switch self {
@@ -177,6 +180,8 @@ enum PredictionError: LocalizedError {
             return "There are no faces in the image."
         case .invalidFacesResults:
             return "There was an error while getting the faces in the image."
+        case .other(let error):
+            return "There was another error while creating prediction: \(error.localizedDescription)"
         }
     }
 }
@@ -194,5 +199,6 @@ struct Prediction: Identifiable {
     /// The tested image.
     var image: UIImage
     /// The id of the prediction.
+    // swiftlint:disable identifier_name
     var id = UUID()
 }
