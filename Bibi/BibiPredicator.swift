@@ -13,7 +13,19 @@ class BibiPredicator: ObservableObject {
     typealias PredicationResult = Result<[Prediction], BibiPredicatorErrors>
     
     /// The predication of the given image (if any).
-    @Published var prediction: PredicationResult?
+    @Published private(set) var prediction: PredicationResult?
+    
+    private var mainThreadPrediction: PredicationResult? {
+        get {
+            return prediction
+        }
+        
+        set {
+            DispatchQueue.main.async { [weak self] in
+                self?.prediction = newValue
+            }
+        }
+    }
     
     private var image: UIImage
     
@@ -41,7 +53,7 @@ class BibiPredicator: ObservableObject {
      */
     private func detectFaces() {
         guard let cgImage = image.cgImage else {
-            self.prediction = .failure(BibiPredicatorErrors.invalidImage)
+            self.mainThreadPrediction = .failure(.invalidImage)
             return
         }
         
@@ -52,9 +64,7 @@ class BibiPredicator: ObservableObject {
         do {
             try handler.perform([detectFacesRequest])
         } catch {
-            DispatchQueue.main.async {
-                self.prediction = .failure(.other(error: error))
-            }
+            self.mainThreadPrediction = .failure(.other(error: error))
         }
     }
     
@@ -65,33 +75,23 @@ class BibiPredicator: ObservableObject {
      */
     private func predicateFaces(request: VNRequest, error: Error?) {
         if let error = error {
-            set(error: .other(error: error))
+            mainThreadPrediction = .failure(.other(error: error))
             return
         }
         
         guard let results = request.results as? [VNFaceObservation] else {
-            set(error: BibiPredicatorErrors.noFaces)
+            mainThreadPrediction = .failure(.noFaces)
             return
         }
         
         if results.count == 0 {
-            set(error: BibiPredicatorErrors.noFaces)
+            mainThreadPrediction = .failure(.noFaces)
             return
         }
         
         self.createPredictions(for: results.map { (result) in
             result.boundingBox
         })
-    }
-    
-    /**
-     Set the published error in the main queue.
-     - Parameter error: The new error to set.
-     */
-    private func set(error: BibiPredicatorErrors) {
-        DispatchQueue.main.async {
-            self.prediction = .failure(.other(error: error))
-        }
     }
     
     // swiftlint:disable identifier_name
@@ -120,7 +120,7 @@ class BibiPredicator: ObservableObject {
      */
     private func createPredictions(for faces: [CGRect]) {
         guard let cgImage = self.image.cgImage else {
-            set(error: BibiPredicatorErrors.invalidImage)
+            mainThreadPrediction = .failure(.invalidImage)
             return
         }
         var predictions = [Prediction]()
@@ -130,7 +130,7 @@ class BibiPredicator: ObservableObject {
                 let scaledFace = try convert(face: face)
                 
                 guard let croppedImage = cgImage.cropping(to: scaledFace) else {
-                    set(error: .invalidImage)
+                    mainThreadPrediction = .failure(.invalidImage)
                     return
                 }
                 
@@ -138,13 +138,11 @@ class BibiPredicator: ObservableObject {
                 prediction.box = face
                 predictions.append(prediction)
             } catch {
-                set(error: .other(error: error))
+                mainThreadPrediction = .failure(.other(error: error))
             }
         }
         
-        DispatchQueue.main.async {
-            self.prediction = .success(predictions)
-        }
+        mainThreadPrediction = .success(predictions)
     }
     
     /**
