@@ -97,8 +97,10 @@ class BibiPredicator: ObservableObject {
     // swiftlint:disable identifier_name
     /**
      Convert the rect of a face to the dimentions of the image.
-     - Parameter face: The rect of the face in the VNFaceObservation bounding box.
+     - Parameter face: The rect of the face in the
+        [VNFaceObservation](https://developer.apple.com/documentation/vision/vnfaceobservation) bounding box.
      - Returns: The new rect in the dimentions of the original image.
+     - Throws: A BibiPredicatorError describing the error.
      */
     private func convert(face rect: CGRect) throws -> CGRect {
         guard let image = self.image.cgImage else {
@@ -149,6 +151,7 @@ class BibiPredicator: ObservableObject {
      Create a prediction of a single image.
      - Parameter image: The image to use for the prediction.
      - Returns: The result of the prediction.
+     - Throws: A NSError that describes the problem.
      */
     private func predicate(image: CGImage) throws -> Prediction {
         let model = try BibiClassifier(configuration: .init())

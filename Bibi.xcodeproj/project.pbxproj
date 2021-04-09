@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7928C6782597A22700E0CF8F /* UIImage+Resize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7928C6772597A22700E0CF8F /* UIImage+Resize.swift */; };
 		793A29E9258813F100C280C8 /* BibiApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793A29E8258813F100C280C8 /* BibiApp.swift */; };
 		793A29EB258813F100C280C8 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793A29EA258813F100C280C8 /* ContentView.swift */; };
 		793A29ED258813F300C280C8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 793A29EC258813F300C280C8 /* Assets.xcassets */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7928C6772597A22700E0CF8F /* UIImage+Resize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Resize.swift"; sourceTree = "<group>"; };
 		793A29E5258813F100C280C8 /* Bibi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bibi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		793A29E8258813F100C280C8 /* BibiApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BibiApp.swift; sourceTree = "<group>"; };
 		793A29EA258813F100C280C8 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -31,6 +33,7 @@
 		793A2A052588F80100C280C8 /* ImageDetectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDetectionView.swift; sourceTree = "<group>"; };
 		793A2A092589143300C280C8 /* PredictionTopImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PredictionTopImageView.swift; sourceTree = "<group>"; };
 		793A2A0F2589519C00C280C8 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		793A2A12258A519500C280C8 /* Bibi.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Bibi.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +68,8 @@
 		793A29E7258813F100C280C8 /* Bibi */ = {
 			isa = PBXGroup;
 			children = (
+				793A2A12258A519500C280C8 /* Bibi.entitlements */,
+				7928C6772597A22700E0CF8F /* UIImage+Resize.swift */,
 				793A29E8258813F100C280C8 /* BibiApp.swift */,
 				793A29EA258813F100C280C8 /* ContentView.swift */,
 				793A2A052588F80100C280C8 /* ImageDetectionView.swift */,
@@ -183,6 +188,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7928C6782597A22700E0CF8F /* UIImage+Resize.swift in Sources */,
 				793A2A062588F80100C280C8 /* ImageDetectionView.swift in Sources */,
 				793A2A0A2589143300C280C8 /* PredictionTopImageView.swift in Sources */,
 				793A29EB258813F100C280C8 /* ContentView.swift in Sources */,
@@ -316,6 +322,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Bibi/Bibi.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Bibi/Preview Content\"";
 				DEVELOPMENT_TEAM = 4N39AG9VMF;
@@ -328,8 +337,11 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.shahar.Bibi;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = "1,2,6";
 			};
 			name = Debug;
 		};
@@ -338,6 +350,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Bibi/Bibi.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Bibi/Preview Content\"";
 				DEVELOPMENT_TEAM = 4N39AG9VMF;
@@ -350,8 +365,11 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.shahar.Bibi;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = "1,2,6";
 			};
 			name = Release;
 		};

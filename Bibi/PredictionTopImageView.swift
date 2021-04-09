@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CoreGraphics
 
 struct PredictionTopImageView: View {
     var image: UIImage

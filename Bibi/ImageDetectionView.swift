@@ -27,11 +27,7 @@ struct ImageDetectionView: View {
                     PredictionTopImageView(image: image, predicator: predicator)
                     ForEach(predictions) { result in
                         HStack {
-                            if result.bibi {
-                                Text("Bibi for \(result.confidence)")
-                            } else {
-                                Text("Not Bibi for \(result.confidence)")
-                            }
+                            Text(formatted(prediction: result))
                             
                             Spacer()
                             Image(uiImage: result.image)
@@ -52,6 +48,10 @@ struct ImageDetectionView: View {
                     .padding()
             }
         }
+    }
+    
+    func formatted(prediction: Prediction) -> String {
+        "\(prediction.bibi ? "" : "Not ")Bibi for \(prediction.confidence * 100)%"
     }
 }
 
