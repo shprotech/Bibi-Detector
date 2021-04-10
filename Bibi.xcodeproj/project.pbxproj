@@ -18,6 +18,8 @@
 		793A2A062588F80100C280C8 /* ImageDetectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793A2A052588F80100C280C8 /* ImageDetectionView.swift */; };
 		793A2A0A2589143300C280C8 /* PredictionTopImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793A2A092589143300C280C8 /* PredictionTopImageView.swift */; };
 		793A2A102589519C00C280C8 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 793A2A0F2589519C00C280C8 /* .swiftlint.yml */; };
+		7960CECD2620AD5E0040F814 /* View+Snapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7960CECC2620AD5E0040F814 /* View+Snapshot.swift */; };
+		7960CED02621D7360040F814 /* SnapshotCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7960CECF2621D7360040F814 /* SnapshotCoordinator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +36,8 @@
 		793A2A092589143300C280C8 /* PredictionTopImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PredictionTopImageView.swift; sourceTree = "<group>"; };
 		793A2A0F2589519C00C280C8 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		793A2A12258A519500C280C8 /* Bibi.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Bibi.entitlements; sourceTree = "<group>"; };
+		7960CECC2620AD5E0040F814 /* View+Snapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Snapshot.swift"; sourceTree = "<group>"; };
+		7960CECF2621D7360040F814 /* SnapshotCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotCoordinator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +83,8 @@
 				793A29F1258813F300C280C8 /* Info.plist */,
 				793A29F82588140700C280C8 /* BibiClassifier.mlmodel */,
 				793A29EE258813F300C280C8 /* Preview Content */,
+				7960CECC2620AD5E0040F814 /* View+Snapshot.swift */,
+				7960CECF2621D7360040F814 /* SnapshotCoordinator.swift */,
 			);
 			path = Bibi;
 			sourceTree = "<group>";
@@ -188,10 +194,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7960CED02621D7360040F814 /* SnapshotCoordinator.swift in Sources */,
 				7928C6782597A22700E0CF8F /* UIImage+Resize.swift in Sources */,
 				793A2A062588F80100C280C8 /* ImageDetectionView.swift in Sources */,
 				793A2A0A2589143300C280C8 /* PredictionTopImageView.swift in Sources */,
 				793A29EB258813F100C280C8 /* ContentView.swift in Sources */,
+				7960CECD2620AD5E0040F814 /* View+Snapshot.swift in Sources */,
 				793A29E9258813F100C280C8 /* BibiApp.swift in Sources */,
 				793A2A002588C14000C280C8 /* BibiPredicator.swift in Sources */,
 				793A29F92588140700C280C8 /* BibiClassifier.mlmodel in Sources */,

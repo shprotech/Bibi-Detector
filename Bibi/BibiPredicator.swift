@@ -202,4 +202,8 @@ struct Prediction: Identifiable {
     /// The id of the prediction.
     // swiftlint:disable identifier_name
     var id = UUID()
+    /// The confidance of the 'Bibi' label.
+    var bibiConfidence: Double {
+        bibi ? confidence : 1 - confidence
+    }
 }
